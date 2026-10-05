@@ -3,6 +3,9 @@ apply the following files in order:
 - deployment.yml
 - service.yml
 
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+
 to check the deployment:
 - kubectl get deployments
 
@@ -19,6 +22,7 @@ to check the service in browser:
 
 
 Instructions For task 2:
+
 apply the following files in order:
 - configmap.yml
 - secret.yml
