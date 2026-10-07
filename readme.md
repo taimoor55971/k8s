@@ -23,11 +23,17 @@ to check the service in browser:
 
 Instructions For task 2:
 
-apply the following files in order:
-- configmap.yml
-- secret.yml
-- deployment.yml
-- service.yml
+the DATABASE_URL secret (crud-app-secret) is NOT stored in git. It is created
+from a direct value at deploy time, before the deployment is applied
+(replace <NEON_DATABASE_URL> with the real connection string):
+
+kubectl apply -f task2/configmap.yml
+kubectl create secret generic crud-app-secret --from-literal=DATABASE_URL='<NEON_DATABASE_URL>'
+kubectl apply -f task2/deployment.yml
+kubectl apply -f task2/service.yml
+
+(to change the value later, delete and recreate the secret, then run
+kubectl rollout restart deployment/nginx-deployment-task2)
 
 to check the deployment:
 - kubectl get deployments
@@ -47,7 +53,7 @@ to check the secret:
 
 for detailed information of configmap and secret:
 - kubectl describe configmap nginx-config
-- kubectl describe secret nginx-secret
+- kubectl describe secret crud-app-secret
 
 and to check the configmaps and secrets within pods:
 - kubectl exec <pod-name> -- env
@@ -56,7 +62,7 @@ to edit configmap:
 - kubectl edit configmap nginx-config
 
 to edit secret:
-- kubectl edit secret nginx-secret
+- kubectl edit secret crud-app-secret
 
 
 and to apply the changes rollout:
@@ -65,6 +71,6 @@ and to apply the changes rollout:
 
 
 to check the service in browser:
-- minikube service nginx-service-task2
+- kubectl port-forward svc/nginx-service-task2 8080:80
 
 

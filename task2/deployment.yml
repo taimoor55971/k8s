@@ -18,12 +18,12 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.25-alpine
+      - name: crud-app
+        image: taimoorkhan5044/crud-app:0.1.0-12d3c65
         ports:
-        - containerPort: 80
+        - containerPort: 3000
         envFrom:
         - configMapRef:
             name: nginx-config
         - secretRef:
-            name: nginx-secret
+            name: crud-app-secret
